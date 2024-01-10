@@ -2,21 +2,27 @@ from twilio.rest import Client
 import csv
 
 account_sid = 'ACc4b773fb954a3188081b9985b11f791a'
-auth_token = '0104ffd38139d79a9e83ada0706a6fd9'
+auth_token = 'a4622e6b853afb561b5e35725986ef78'
 client = Client(account_sid, auth_token)
 
 fromNumber = '+18557298705'
+testRecipient = '+18777804236'
 
-class Message:
-    def __init__(self, message, recipient):
-        self.message = message
-        self.recipient = recipient
-    def createAndSendMessage(self):
-        self.message = client.messages.create(
-        from_=fromNumber,
-        body=self.message,
-        to=self.recipient
-)
+
+def createAndSendMessage(message, sender, recipient):
+    if type(recipient) == list:
+        for i in recipient:
+            message = client.messages.create(
+                from_=sender,
+                body=message,
+                to=i
+            )
+    elif type(recipient) == str:
+        message = client.messages.create(
+            from_=sender,
+            body=message,
+            to=recipient
+        )
 
 def Main():
     with open('data.csv', mode ='r')as file:
@@ -33,8 +39,17 @@ def Main():
                 pass
     if startLine == -1:
         raise Exception('CSV Read Error: CSV lines not numbered properly/No line with the first cell labelled 1 found')
+    myNewFile = myFile[startLine:]
+    # print(myFile,myNewFile)
+    for i in myNewFile:
+        for ii in range(int(i[2])):
+            input(f"Press enter to start heat {ii+1} of {i[1]}")
+            createAndSendMessage(f"{i[1]} heat {ii+1} starting now", fromNumber, [testRecipient])
 
+        # print(myNewFile[i][1],myNewFile[i][2])
+    # createAndSendMessage("test12345", fromNumber, '+18777804236')
 
+ 
 
 Main()
 
