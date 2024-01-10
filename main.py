@@ -2,7 +2,7 @@ from twilio.rest import Client
 import csv
 
 account_sid = 'ACc4b773fb954a3188081b9985b11f791a'
-auth_token = 'a4622e6b853afb561b5e35725986ef78'
+auth_token = 'AUTHTOKENHERE'
 client = Client(account_sid, auth_token)
 
 fromNumber = '+18557298705'
