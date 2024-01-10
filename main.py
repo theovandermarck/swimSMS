@@ -7,8 +7,6 @@ client = Client(account_sid, auth_token)
 
 fromNumber = '+18557298705'
 testRecipient = '+18777804236'
-todesthisshowup
-thistoo
 
 def createAndSendMessage(message, sender, recipient):
     if type(recipient) == list:
