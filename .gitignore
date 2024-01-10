@@ -1,2 +1,3 @@
 authtoken.py
-.idea
+.idea/
+.DS_Store
